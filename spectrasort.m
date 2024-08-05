@@ -177,7 +177,7 @@ classdef spectrasort
             
         end
 
-        function classifierplotconfusion (testvector,targetvector)
+        function classifierplotconfusion (testvector,targetvector, titletag)
         %
         % this member function takes in testvector (i.e., classifcation results)
         % and the targetvector (the true +ve classification of the samples) and
@@ -185,6 +185,10 @@ classdef spectrasort
         % (of normal, disease, malignant) and the 2-way classification of
         % normal and disease combined, versus malignant.
         %
+            if (nargin < 3)
+                titletag = "";
+            end
+
             if (size(testvector,1) == 1)
                 testvector3= zeros(3,size(testvector,1));
                 testvector3(1,(testvector==1)) = 1;
@@ -204,7 +208,7 @@ classdef spectrasort
             end
 
             figure;
-            cfmatrix3x3 = plotconfusion(targetvector3,testvector3);
+            cfmatrix3x3 = plotconfusion(targetvector3,testvector3,strcat(titletag, " (three-way)"));
             cfmatrix3x3.CurrentAxes.XTickLabel{1,1}='normal';
             cfmatrix3x3.CurrentAxes.XTickLabel{2,1}='disease';
             cfmatrix3x3.CurrentAxes.XTickLabel{3,1}='malignant';
@@ -230,7 +234,7 @@ classdef spectrasort
             targetvector2way = [targetvector3(1,:)+targetvector3(2,:);targetvector3(3,:)];
 
             figure;
-            cfmatrix2x2 = plotconfusion(targetvector2way,testvector2way);
+            cfmatrix2x2 = plotconfusion(targetvector2way,testvector2way,strcat(titletag, " (two-way)"));
             cfmatrix2x2.CurrentAxes.XTickLabel{1,1}='normal & disease';
             cfmatrix2x2.CurrentAxes.XTickLabel{2,1}='malignant';
             cfmatrix2x2.CurrentAxes.XTickLabelRotation=0;
@@ -494,7 +498,7 @@ classdef spectrasort
             t1_itarget = [repmat([1;0;0],[1,obj.ctrdim]),repmat([0;1;0],[1,obj.bendim]),...
                 repmat([0;0;1],[1,obj.maldim])];
 
-            spectrasort.classifierplotconfusion(t1_cfmx_3d,t1_itarget);
+            spectrasort.classifierplotconfusion(t1_cfmx_3d,t1_itarget,"Training-set");
 
             findmisclassified = false;
             %if needed, this flag can be turned on to determine the misclassified samples
@@ -571,7 +575,7 @@ classdef spectrasort
                 repmat([0;0;1],[1,obj.maldim])];
             t1y_target = repmat(t1_itarget,[1,obj.ncvrunactual]);
 
-            spectrasort.classifierplotconfusion(t1_cfmx_3d,t1_itarget);
+            spectrasort.classifierplotconfusion(t1_cfmx_3d,t1_itarget,"Training-set");
 
             malorigseq =[obj.malstock,obj.malpivot];
             benorigseq =[obj.benstock,obj.benpivot];
