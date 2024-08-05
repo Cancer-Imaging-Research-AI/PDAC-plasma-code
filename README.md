@@ -14,3 +14,6 @@ pdacplasmaclassifier.m is the main file with appropriate comments to run the cod
 
 The code may be potentially tested on any new MRS data with the following provisions. All details related to the plasma sample collection, including sample collection tubes, and the high resolution 1H MR spectra acquisition parameters for the ZGPR sequence, including field strength and spectral processing, will be required to accurately match the details provided in Methods. 
 
+**The data (.mat) files, due to their large sizes, are provided using LFS (Large File Storage) support:**
+To download the .mat files that are essential to run the code, the individual raw file download option for each .mat file should be used directly from the [PDAC plasma code repository](https://github.com/Cancer-Imaging-Research-AI/PDAC-plasma-code). The .mat files obtained using the zip file download are not valid MATLAB files and will not be recognized by MATLAB.
+
